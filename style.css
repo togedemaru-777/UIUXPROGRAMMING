@@ -1,4 +1,4 @@
-.body{
+.body {
     color: #292a31;
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 18px;
@@ -9,13 +9,18 @@
 
 header,
 main,
-footer{
+footer {
+    /*좁은 화면에서도 사용 가능한 너비에 맞춰 줄어듭니다.*/
+    width: 100%;
+
+    /* 넓은 화면에서도 콘텐츠는 1100px보다 커지지 않습니다. */
     max-width: 1100px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding-left: 24px;
+    padding-right: 24px;
 }
 
-img{
+img {
     display: block;
     width: 100%;
     height: auto;
@@ -24,68 +29,76 @@ img{
     border-radius: 10px;
 }
 
-header{
+header {
     padding-top: 48px;
     padding-bottom: 32px;
 }
 
-section{
+section {
     margin-top: 56px;
 }
 
-footer{
+footer {
     padding-top: 32px;
     padding-bottom: 32px;
 }
 
-nav{
+nav {
     display: flex;
+
+    /* 메뉴가 들어갈 자리가 부족하면 다음 줄로 이동 */
+    flex-wrap: wrap;
     gap: 24px;
     margin-top: 24px;
 }
 
-nav a{
+nav a {
     color: #5b5b87;
     font-size: 700;
     text-decoration: none;
 }
 
-h1{
+h1 {
     font-size: 48px;
     font-weight: 800;
     line-height: 1.2;
     letter-spacing: -0.02em;
 }
 
-h2{
+h2 {
     color: #635bff;
     font-size: 32px;
     font-weight: 800;
     line-height: 1.2;
 }
 
-h3{
+h3 {
     font-size: 22px;
     font-weight: 700;
     line-height: 1.4;
 }
 
-p{
+p {
     color: black;
     line-height: 1.7;
 }
 
-.features-list{
+.features-list {
     list-style-type: none;
     padding-left: 0;
     margin: 0;
-    display: flex;
-    align-items: stretch;
+
+    display: grid;
+
+    /* 들어갈 수 있는 만큼 열을 만들고,
+    카드 너비를 최소 260px부터 남은 공간까지 사용 */
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+
     gap: 24px;
 }
 
-.feature-card{
-    flex: 1;
+.feature-card {
+    min-width: 0;
     padding: 20px 24px;
     margin-bottom: 0px;
     border: 1px solid #deddea;
@@ -99,7 +112,7 @@ p{
     box-sizing: border-box;
 }
 
-.subscribe-card{
+.subscribe-card {
     padding: 24px;
     margin-top: 32px;
     background-color: #f4f3ff;
@@ -107,7 +120,7 @@ p{
     border-radius: 12px;
 }
 
-input{
+input {
     flex: 1;
     width: 0;
     padding: 12px 18px;
@@ -115,14 +128,14 @@ input{
     border-radius: 10px;
 }
 
-form{
+form {
     display: flex;
     align-items: center;
     gap: 12px;
 
 }
 
-button{
+button {
     padding: 12px 18px;
     border: 0;
     border-radius: 10px;
@@ -133,20 +146,72 @@ button{
 }
 
 input,
-button{
+button {
     font: inherit;
 }
 
-button:hover{
+button:hover {
     background-color: #4b43db;
 }
 
 button:focus,
-input:focus{
-    outline:  3px solid #b9b4ff;
+input:focus {
+    outline: 3px solid #b9b4ff;
     outline-offset: 2px;
 }
 
-button:active{
+button:active {
     transform: translateY(1px);
+}
+
+/* 웹페이지가 표시되는 가로 폭이 768px 이하일 때만 적용 */
+@media (max-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+
+    header {
+        padding-top: 32px;
+        padding-bottom: 24px;
+    }
+
+    section {
+        margin-top: 40px;
+    }
+
+    h1 {
+        font-size: 36px;
+    }
+
+    h2 {
+        font-size: 28px;
+    }
+
+    /* 가로 메뉴를 위에서 아래로 배치 */
+    nav {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    /* 기능 카드를 한 열로 배치 */
+    .features-list {
+        grid-template-columns: 1fr;
+    }
+
+    /* 이메일 입력창과 버튼도 한 열로 배치 */
+    form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    input,
+    button {
+        width: 100%;
+    }
+
+    button {
+        /* 모바일에서도 버튼의 누르는 영역이 너무 낮아지지 않도록 설정 */
+        min-height: 48px;
+    }
 }
