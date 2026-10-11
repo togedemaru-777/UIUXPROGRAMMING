@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=divice-width, initial scale=1.0">
-    <title>Re:hear</title>
+    <meta name="viewport" content="width=divice-width, initial-scale=1.0">
+    <title>일상 속 물리학</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
@@ -20,43 +20,43 @@
      정보 순서: 소개->기능->방법->세션설정
     -->
     <header>
-        <h1>발표 훈련 서비스</h1>
-        <p>반복적인 연습으로 발표 불안을 줄이고, 자신감을 기릅니다.</p>
+        <h1>일상 속 물리학</h1>
+        <p>당연하게 여겼던 현상 속 숨겨진 물리학을 알아봅시다.</p>
 
         <nav aria-label="주요 메뉴">
-            <a href="#about">서비스 소개</a>
-            <a href="#features">훈련 기능</a>
-            <a href="#steps">이용 방법</a>
-            <a href="#subscribe">훈련 소식 받기</a>
+            <a href="#about">사이트 소개</a>
+            <a href="#features">탐구 주제</a>
+            <a href="#steps">학습 방법</a>
+            <a href="#subscribe">새로운 소식 받기</a>
         </nav>
     </header>
 
     <main>
         <section id="about">
-            <h2>서비스 소개</h2>
-            <h3>안전한 환경에서 반복하는 발표 연습</h3>
+            <h2>일상 속 물리학</h2>
+            <h3>우리가 살아가는 세상은 어떤 원리로 움직일까요?</h3>
 
-            <img src="assets/img/image.png" alt="가상 청중 앞에서 발표를 연습하는 사용자">
-            <p>가상 청중 앞에서 발표를 연습할 수 있는 안전한 환경을 제공합니다.</p>
-            <p>연습이 끝나면 발표 결과를 확인하고 개선할 부분을 파악할 수 있습니다.</p>
+            <img src="assets/img/img.jpeg" alt="물리학과 관련된 정보를 확인하는 이미지">
+            <p>전구가 빛나는 이유부터 물체가 움직이는 원리까지, 일상에서 접하는 다양한 물리학으로 알아봅니다.</p>
+            <p>익숙한 현상을 시작으로 그 속에 숨겨진 과학적 원리를 이해해 봅시다.</p>
         </section>
 
         <section id="features">
-            <h2>훈련 기능</h2>
+            <h2>탐구 주제</h2>
             <ul class="features-list">
                 <li class="feature-card">
-                    <h3>단계별 발표 연습</h3>
-                    <p>연습한 발표 상황을 선택하고 반복해서 연습합니다.</p>
+                    <h3>전구는 어떻게 빛날까?</h3>
+                    <p>전기가 흐르면 전구에서 빛이 발생하는 이유를 알아봅니다.</p>
                 </li>
 
                 <li class="feature-card">
-                    <h3>가상 청중 연습</h3>
-                    <p>가상 청중 앞에서 발표를 연습하고, 청중의 반응을 확인합니다.</p>
+                    <h3>자석은 왜 서로 밀어낼까?</h3>
+                    <p>자석 사이에 힘이 왜 발생하는지 원리를 알아봅니다.</p>
                 </li>
 
                 <li class="feature-card">
-                    <h3>발표 피드백</h3>
-                    <p>발표 후, AI가 제공하는 피드백을 통해 개선점을 확인합니다.</p>
+                    <h3>물질에 성질은 어떻게 결정될까?</h3>
+                    <p>물질에 성질이 결정되는 원인을 살펴봅시다.</p>
                 </li>
             </ul>
         </section>
@@ -65,26 +65,29 @@
             <h2>이용 방법</h2>
             <ol>
                 <li>회원가입 및 로그인</li>
-                <li>원하는 발표 주제를 선택합니다.</li>
-                <li>단계별 발표 연습을 시작합니다.</li>
-                <li>가상 청중 앞에서 발표를 연습합니다.</li>
+                <li>원하는 탐구 주제를 선택합니다.</li>
+                <li>단계별 탐구 알아보기를 시작합니다.</li>
+                <li>일상 속 물리학를 학습합니다.</li>
                 <li>AI가 제공하는 피드백을 확인하고 개선합니다.</li>
             </ol>
         </section>
 
         <section id="subscribe" class="subscribe-card">
-            <h2>훈련 소식 받기</h2>
-            <form>
+            <h2>새로운 탐구 소식 받기</h2>
+            <form id="subscribe-form">
                 <label for="email">이메일</label>
                 <input type="email" id="email" name="email">
-                <button type="submit">훈련 소식 신청하기</button>
+                <button id="subscribeButton" type="submit">소식 신청하기</button>
             </form>
+            <p id="subscribeMessage" aria-live="polite">이메일을 입력한 뒤, 신청해 주세요.</p>
         </section>
     </main>
 
     <footer>
-        <small>ⓒ 2026 발표 훈련 서비스</small>
+        <small>ⓒ 2026 일상 속 물리학</small>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 
 </html>
