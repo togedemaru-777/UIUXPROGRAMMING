@@ -14,9 +14,9 @@
 <body>
     <!-- 8페이지에서 작성한 UX 계획 주석 -->
     <!-- 
-     사용자: 발표 불안이 있는사람
-     목적: 발표 불안을 낮추고 자신감 얻기
-     핵심 행동: 발표 세션 설정하기
+     사용자: 일상 속 물리학 지식을 얻고싶은 사람
+     목적: 물리학 지식
+     핵심 행동: 지식 알려주기
      정보 순서: 소개->기능->방법->세션설정
     -->
     <header>
@@ -43,22 +43,71 @@
 
         <section id="features">
             <h2>탐구 주제</h2>
-            <ul class="features-list">
-                <li class="feature-card">
-                    <h3>전구는 어떻게 빛날까?</h3>
-                    <p>전기가 흐르면 전구에서 빛이 발생하는 이유를 알아봅니다.</p>
-                </li>
 
-                <li class="feature-card">
-                    <h3>자석은 왜 서로 밀어낼까?</h3>
-                    <p>자석 사이에 힘이 왜 발생하는지 원리를 알아봅니다.</p>
-                </li>
+            <div class="tabs" role="tablist" aria-label="기능 선택">
+                <button
+                    id="tab-bulb"
+                    class="tab is-active"
+                    type="button"
+                    role="tab"
+                    aria-selected="true"
+                    aria-controls="feature-bulb"
+                    data-target="#feature-bulb">
+                    전구는 어떻게 빛날까?
+                </button>
 
-                <li class="feature-card">
-                    <h3>물질에 성질은 어떻게 결정될까?</h3>
-                    <p>물질에 성질이 결정되는 원인을 살펴봅시다.</p>
-                </li>
-            </ul>
+                <button
+                    id="tab-magnet"
+                    class="tab"
+                    type="button"
+                    role="tab"
+                    aria-selected="false"
+                    aria-controls="feature-magnet"
+                    data-target="#feature-magnet">
+                    자석은 왜 서로 밀어낼까?
+                </button>
+
+                <button
+                    id="tab-matter"
+                    class="tab"
+                    type="button"
+                    role="tab"
+                    aria-selected="false"
+                    aria-controls="feature-matter"
+                    data-target="#feature-matter">
+                    물질에 성질은 어떻게 결정될까?
+                </button>
+            </div>
+
+            <div
+                id="feature-bulb"
+                class="panel is-active"
+                role="tabpanel"
+                aria-labelledby="tab-bulb">
+                <h3>전구는 어떻게 빛날까?</h3>
+                <p>전기가 흐르면 전구에서 빛이 발생하는 이유를 알아봅니다.</p>
+            </div>
+
+            <div
+                id="feature-magnet"
+                class="panel"
+                role="tabpanel"
+                aria-labelledby="tab-magnet"
+                hidden>
+                <h3>자석은 왜 서로 밀어낼까?</h3>
+                <p>자석 사이에 힘이 왜 발생하는지 원리를 알아봅니다.</p>
+            </div>
+
+            <div
+                id="feature-matter"
+                class="panel"
+                role="tabpanel"
+                aria-labelledby="tab-matter"
+                hidden>
+                <h3>물질에 성질은 어떻게 결정될까?</h3>
+                <p>물질에 성질이 결정되는 원인을 살펴봅시다.</p>
+            </div>
+
         </section>
 
         <section id="steps">
@@ -70,6 +119,38 @@
                 <li>일상 속 물리학를 학습합니다.</li>
                 <li>AI가 제공하는 피드백을 확인하고 개선합니다.</li>
             </ol>
+        </section>
+
+        <section id="event-practice">
+            <h2>탐구자 설정</h2>
+
+            <div class="event-grid">
+                <article class="event-card">
+                    <h3>테마 바꾸기</h3>
+                    <button id="themeButton" type="button">다크 테마 바꾸기</button>
+                </article>
+
+                <article class="event-card">
+                    <h3>탐구자 정보</h3>
+                    <label for="nickname">탐구자 이름:</label>
+                    <input type="text" id="nickname" maxlength="10">
+                    <p id="nicknameCount" aria-live="polite">0 / 10</p>
+                </article>
+
+                <article class="event-card">
+                    <h3>탐구 조회 정보 동의</h3>
+                    <label class="agree-row">
+                        <input type="checkbox" id="agreecheck">
+                        학습 활동 분석 조회에 동의합니다.
+                    </label>
+                    <p id="agreeMessage" aria-live="polite">
+                        동의 후 탐구주제를 제공합니다.
+                    </p>
+                    <button id="startButton" type="button" disabled>
+                        탐구 시작하기
+                    </button>
+                </article>
+            </div>
         </section>
 
         <section id="subscribe" class="subscribe-card">

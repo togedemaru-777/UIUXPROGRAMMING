@@ -1,4 +1,4 @@
-## 4주차 반응형 수정
+<!-- ## 4주차 반응형 수정
 
 ### 확인할 문제
 작은 화면에서 메뉴, 기능 카드, 이메일 폼이 좁여 보았다.
@@ -14,4 +14,7 @@
 
 https://github.com/togedemaru-777/UIUXPROGRAMMING
 
-https://togedemaru-777.github.io/UIUXPROGRAMMING/
+https://togedemaru-777.github.io/UIUXPROGRAMMING/ -->
+
+##6주차 실습
+
