@@ -1,3 +1,26 @@
+const explorationTopics = [
+    {
+        id: "bulb",
+        title: "전구는 어떻게 빛날까?",
+        description: "전기가 흐르면 전구에서 빛이 발생하는 이유를 알아봅니다."
+    },
+    {
+        id: "magnet",
+        title: "자석은 왜 서로 밀어낼까?",
+        description: "자석 사이에 힘이 왜 발생하는지 원리를 알아봅니다."
+    },
+    {
+        id: "matter",
+        title: "물질의 성질은 어떻게 결정될까?",
+        description: "물질의 성질이 결정되는 원인을 살펴봅니다."
+    },
+    {
+        id: "gravity",
+        title: "물체는 왜 아래로 떨어질까?",
+        description: "일상에서 경험하는 중력과 물체의 운동을 살펴봅니다."
+    }
+];
+
 const serviceName = "physicsST"
 let isSubscribed = false
 let submitCount = 0;
@@ -82,6 +105,49 @@ function handleAgreeChange() {
 
 agreeCheck.addEventListener("change", handleAgreeChange);
 
+function renderTopicOptions() {
+    const tabList = document.querySelector("#topic-tabs");
+    const panelList = document.querySelector("#topic-panels");
+    const topicOptions = document.querySelector("#topic-options");
+
+    explorationTopics.forEach((topic, index) => {
+        const tab = document.createElement("button");
+        tab.id = "tab-" + topic.id;
+        tab.className = index === 0 ? "tab is-active" : "tab";
+        tab.type = "button";
+        tab.setAttribute("role", "tab");
+        tab.setAttribute("aria-selected", String(index === 0));
+        tab.setAttribute("aria-controls", "feature-" + topic.id);
+        tab.dataset.target = "#feature-" + topic.id;
+        tab.textContent = topic.title;
+        tabList.append(tab);
+
+        const panel = document.createElement("div");
+        panel.id = "feature-" + topic.id;
+        panel.className = index === 0 ? "panel is-active" : "panel";
+        panel.setAttribute("role", "tabpanel");
+        panel.setAttribute("aria-labelledby", tab.id);
+        panel.hidden = index !== 0;
+
+        const heading = document.createElement("h3");
+        heading.textContent = topic.title;
+        const description = document.createElement("p");
+        description.textContent = topic.description;
+        panel.append(heading, description);
+        panelList.append(panel);
+
+        const label = document.createElement("label");
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "topic";
+        radio.value = topic.id;
+        label.append(radio, document.createTextNode(topic.title));
+        topicOptions.append(label);
+    });
+}
+
+renderTopicOptions();
+
 const tabs = document.querySelectorAll(".tab");
 const panels = document.querySelectorAll(".panel");
 
@@ -138,11 +204,25 @@ const restartButton = document.querySelector("#restart-button");
 
 const summaryTitle = document.querySelector("#summary-title");
 const summaryTopic = document.querySelector("#summary-topic");
+const showTopicButton = document.querySelector("#mdnebonegi");
+const explorationResult = document.querySelector("#exploration-result");
+const explorationTitle = document.querySelector("#exploration-title");
+const explorationTopic = document.querySelector("#exploration-topic");
+const explorationContent = document.querySelector("#exploration-content");
 
 const formData = {
     title: "",
-    topic: ""
+    topic: "",
+    topicId: ""
 };
+
+function clearExplorationResult() {
+    explorationResult.hidden = true;
+    explorationTitle.textContent = "";
+    explorationTopic.textContent = "";
+    explorationContent.textContent = "";
+    showTopicButton.setAttribute("aria-expanded", "false");
+}
 
 function showStep(index) {
     flowSteps.forEach((step, i) => {
@@ -161,6 +241,7 @@ const recordingConfirm = document.querySelector("#recording-confirm");
 function cancelSetup() {
     agreeCheck.checked = false;
     trainingFlow.hidden = true;
+    clearExplorationResult();
     handleAgreeChange();
     agreeCheck.focus();
 }
@@ -181,6 +262,7 @@ recordingConfirm.addEventListener("click", () => {
     if (!agreeCheck.checked) return;
 
     recordingDialog.close();
+    clearExplorationResult();
     trainingFlow.hidden = false;
     showStep(0);
 
@@ -222,7 +304,9 @@ optionNext.addEventListener("click", () => {
 
     topicError.textContent = "";
 
-    formData.topic = selectedTopic.parentElement.textContent.trim();
+    const topic = explorationTopics.find((item) => item.id === selectedTopic.value);
+    formData.topicId = topic.id;
+    formData.topic = topic.title;
 
     summaryTitle.textContent = formData.title;
     summaryTopic.textContent = formData.topic;
@@ -242,9 +326,32 @@ finishButton.addEventListener("click", () => {
     showStep(3);
 });
 
+showTopicButton.addEventListener("click", () => {
+    const topic = explorationTopics.find((item) => item.id === formData.topicId);
+    if (!topic || !formData.title) return;
+
+    const template = document.querySelector("#content-" + topic.id);
+    explorationTitle.textContent = formData.title;
+    explorationTopic.textContent = topic.title;
+    explorationContent.replaceChildren();
+
+    if (template && template.innerHTML.trim()) {
+        explorationContent.append(template.content.cloneNode(true));
+    } else {
+        explorationContent.textContent = "이 주제의 탐구 내용은 아직 준비 중입니다. 다른 주제를 설정해 주세요.";
+    }
+
+    explorationResult.hidden = false;
+    showTopicButton.setAttribute("aria-expanded", "true");
+    explorationTitle.focus({ preventScroll: true });
+    explorationResult.scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
 restartButton.addEventListener("click", () => {
+    clearExplorationResult();
     formData.title = "";
     formData.topic = "";
+    formData.topicId = "";
 
     titleInput.value = "";
     titleError.textContent = "";

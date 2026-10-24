@@ -44,70 +44,8 @@
         <section id="features">
             <h2>탐구 주제</h2>
 
-            <div class="tabs" role="tablist" aria-label="기능 선택">
-                <button
-                    id="tab-bulb"
-                    class="tab is-active"
-                    type="button"
-                    role="tab"
-                    aria-selected="true"
-                    aria-controls="feature-bulb"
-                    data-target="#feature-bulb">
-                    전구는 어떻게 빛날까?
-                </button>
-
-                <button
-                    id="tab-magnet"
-                    class="tab"
-                    type="button"
-                    role="tab"
-                    aria-selected="false"
-                    aria-controls="feature-magnet"
-                    data-target="#feature-magnet">
-                    자석은 왜 서로 밀어낼까?
-                </button>
-
-                <button
-                    id="tab-matter"
-                    class="tab"
-                    type="button"
-                    role="tab"
-                    aria-selected="false"
-                    aria-controls="feature-matter"
-                    data-target="#feature-matter">
-                    물질에 성질은 어떻게 결정될까?
-                </button>
-            </div>
-
-            <div
-                id="feature-bulb"
-                class="panel is-active"
-                role="tabpanel"
-                aria-labelledby="tab-bulb">
-                <h3>전구는 어떻게 빛날까?</h3>
-                <p>전기가 흐르면 전구에서 빛이 발생하는 이유를 알아봅니다.</p>
-            </div>
-
-            <div
-                id="feature-magnet"
-                class="panel"
-                role="tabpanel"
-                aria-labelledby="tab-magnet"
-                hidden>
-                <h3>자석은 왜 서로 밀어낼까?</h3>
-                <p>자석 사이에 힘이 왜 발생하는지 원리를 알아봅니다.</p>
-            </div>
-
-            <div
-                id="feature-matter"
-                class="panel"
-                role="tabpanel"
-                aria-labelledby="tab-matter"
-                hidden>
-                <h3>물질에 성질은 어떻게 결정될까?</h3>
-                <p>물질에 성질이 결정되는 원인을 살펴봅시다.</p>
-            </div>
-
+            <div id="topic-tabs" class="tabs" role="tablist" aria-label="탐구 주제 선택"></div>
+            <div id="topic-panels"></div>
         </section>
 
         <section id="steps">
@@ -137,31 +75,29 @@
                     <p id="nicknameCount" aria-live="polite">0 / 10</p>
                 </article>
 
-<article class="event-card">
-    <h3>탐구 설정 안내</h3>
-    <p>관심 있는 물리 현상을 선택하고 탐구 내용을 알아봅니다.</p>
+                <article class="event-card">
+                    <h3>탐구 설정 안내</h3>
+                    <p>관심 있는 물리 현상을 선택하고 탐구 내용을 알아봅니다.</p>
 
-    <label class="agree-row">
-        <input type="checkbox" id="agreecheck">
-        탐구 진행 안내를 확인했습니다.
-    </label>
+                    <label class="agree-row">
+                        <input type="checkbox" id="agreecheck">
+                        탐구 진행 안내를 확인했습니다.
+                    </label>
 
-    <p id="agreeMessage" aria-live="polite">
-        안내 확인 후 탐구를 설정할 수 있습니다.
-    </p>
+                    <p id="agreeMessage" aria-live="polite">
+                        안내 확인 후 탐구를 설정할 수 있습니다.
+                    </p>
 
-    <button id="startButton" type="button" disabled>
-        탐구 설정하기
-    </button>
-</article>
+                    <button id="startButton" type="button" disabled>
+                        탐구 설정하기
+                    </button>
+                </article>
             </div>
         </section>
 
         <dialog id="recording-dialog" aria-labelledby="recording-title" aria-describedby="recording-description">
-            <h2 id="recording-title">탐구 조회 </h2>
-            <p id="recording-description">관심 있는 물리 현상을 입력하고 탐구 주제를 선택할 수 있습니다.
-        지금은 탐구 주제를 설정하는 단계이며,
-        실제 탐구는 아직 시작되지 않습니다.</p>
+            <h2 id="recording-title">탐구 조회</h2>
+            <p id="recording-description">관심 있는 물리 현상을 입력하고 탐구 주제를 선택할 수 있습니다. 지금은 탐구 주제를 설정하는 단계이며, 실제 탐구는 아직 시작되지 않습니다.</p>
             <div class="dialog-actions">
                 <button id="recording-cancel" type="button">돌아가기</button>
                 <button id="recording-confirm" type="button">확인하고 설정 시작하기</button>
@@ -176,67 +112,59 @@
                 <span class="progress_item">3 · 확인</span>
             </p>
 
-    <section class="step" data-step="1" hidden>
-        <h3>탐구 이름을 입력해 주세요.</h3>
-        <label for="topic-title">탐구 이름</label>
-        <input id="topic-title" type="text"
-               placeholder="예: 일상 속 물리학 탐구"
-               aria-describedby="title-error">
-        <p id="title-error" class="error-message" aria-live="polite"></p>
-        <button id="title-next" type="button">탐구 주제 선택하기</button>
-    </section>
+            <section class="step" data-step="1" hidden>
+                <h3>탐구 이름을 입력해 주세요.</h3>
+                <label for="topic-title">탐구 이름</label>
+                <input id="topic-title" type="text" placeholder="예: 일상 속 물리학 탐구" aria-describedby="title-error">
+                <p id="title-error" class="error-message" aria-live="polite"></p>
+                <button id="title-next" type="button">탐구 주제 선택하기</button>
+            </section>
 
-    <section class="step" data-step="2" hidden>
-        <h3>탐구 주제를 선택해 주세요.</h3>
-        <fieldset id="topic-options">
-            <legend>탐구 주제</legend>
-            <label>
-                <input type="radio" name="topic" value="bulb">
-                전구는 어떻게 빛날까?
-            </label>
-            <label>
-                <input type="radio" name="topic" value="magnet">
-                자석은 왜 서로 밀어낼까?
-            </label>
-            <label>
-                <input type="radio" name="topic" value="matter">
-                물질의 성질은 어떻게 결정될까?
-            </label>
-        </fieldset>
-        <p id="topic-error" class="error-message" aria-live="polite"></p>
-        <div class="step-actions">
-            <button id="option-pre" type="button">이전</button>
-            <button id="option-next" type="button">설정 내용 확인하기</button>
-        </div>
-    </section>
+            <section class="step" data-step="2" hidden>
+                <h3>탐구 주제를 선택해 주세요.</h3>
+                <fieldset id="topic-options">
+                    <legend>탐구 주제</legend>
+                </fieldset>
+                <p id="topic-error" class="error-message" aria-live="polite"></p>
+                <div class="step-actions">
+                    <button id="option-pre" type="button">이전</button>
+                    <button id="option-next" type="button">설정 내용 확인하기</button>
+                </div>
+            </section>
 
-   
-<section class="step" data-step="3" hidden>
-    <h3>탐구 설정 내용을 확인해 주세요.</h3>
-    <div class="summary-list">
-        <div>
-            <span>탐구할 현상</span>
-            <strong id="summary-title"></strong>
-        </div>
-        <div>
-            <span>탐구 주제</span>
-            <strong id="summary-topic"></strong>
-        </div>
-    </div>
-    <div class="step-actions">
-        <button id="summary-prev" type="button">수정하기</button>
-        <button id="finish-button" type="button">설정 완료하기</button>
-    </div>
-</section>
+            <section class="step" data-step="3" hidden>
+                <h3>탐구 설정 내용을 확인해 주세요.</h3>
+                <div class="summary-list">
+                    <div>
+                        <span>탐구할 현상</span>
+                        <strong id="summary-title"></strong>
+                    </div>
+                    <div>
+                        <span>탐구 주제</span>
+                        <strong id="summary-topic"></strong>
+                    </div>
+                </div>
+                <div class="step-actions">
+                    <button id="summary-prev" type="button">수정하기</button>
+                    <button id="finish-button" type="button">설정 완료하기</button>
+                </div>
+            </section>
 
-<section class="step complete-step" data-step="4" hidden>
-    <h3>탐구 설정이 완료되었습니다.</h3>
-    <p>탐구 이름과 주제 설정이 완료되었습니다.
-   다른 주제를 탐구하려면 다시 설정할 수 있습니다.</p>
-    <button id="restart-button" type="button">다른 주제 설정하기</button>
-</section>
+            <section class="step complete-step" data-step="4" hidden>
+                <h3>탐구 설정이 완료되었습니다.</h3>
+                <p>탐구 이름과 주제 설정이 완료되었습니다. 다른 주제를 탐구하려면 다시 설정할 수 있습니다.</p>
+                <div class="completion-actions">
+                    <button id="mdnebonegi" type="button" aria-controls="exploration-result" aria-expanded="false">설정한 주제 텍스트로 보여주기</button>
+                    <button id="restart-button" type="button">다른 주제 설정하기</button>
+                </div>
+            </section>
+        </section>
 
-</section>
+        <section id="exploration-result" class="exploration-result" aria-labelledby="exploration-title" hidden>
+            <h1 id="exploration-title" tabindex="-1"></h1>
+            <h2 id="exploration-topic"></h2>
+            <div id="exploration-content" class="exploration-content"></div>
+        </section>
 
         <section id="subscribe" class="subscribe-card">
             <h2>새로운 탐구 소식 받기</h2>
@@ -252,6 +180,248 @@
     <footer>
         <small>ⓒ 2026 일상 속 물리학</small>
     </footer>
+
+    <template id="content-bulb">
+        <div class="physics-lesson">
+            <p class="physics-intro">백열전구가 빛나는 이유를 눈에 보이는 현상에서 시작해 전자와 광자의 관점까지 살펴봅니다.</p>
+
+            <ol class="physics-stages" role="list">
+                <li class="physics-stage">
+                    <span class="physics-stage-number" aria-hidden="true">01</span>
+                    <div class="physics-stage-body">
+                        <p class="physics-stage-level">눈에 보이는 현상</p>
+                        <h3>전구는 왜 빛날까?</h3>
+                        <p>스위치를 켜면 전구 안의 가느다란 필라멘트가 뜨거워지면서 빛을 냅니다. 백열전구는 이처럼 물체를 높은 온도로 가열해 빛을 얻는 장치입니다.</p>
+                        <p>전선에는 주로 구리를 사용하지만, 필라멘트에는 높은 온도를 견디는 텅스텐을 사용합니다.</p>
+
+                    </div>
+                </li>
+
+                <li class="physics-stage">
+                    <span class="physics-stage-number" aria-hidden="true">02</span>
+                    <div class="physics-stage-body">
+                        <p class="physics-stage-level">회로와 에너지</p>
+                        <h3>전기에너지가 내부에너지로 바뀝니다</h3>
+                        <p>전구를 전원에 연결해 회로가 닫히면 필라멘트에 전류가 흐릅니다. 이때 전기에너지가 필라멘트의 내부에너지로 전환되어 온도가 올라갑니다. 이러한 현상을 <strong>줄 발열</strong>이라고 합니다.</p>
+                        <p>필라멘트는 매우 가늘고 전기 저항이 있어 전류가 흐를 때 높은 온도까지 가열됩니다.</p>
+
+                    </div>
+                </li>
+
+                <li class="physics-stage">
+                    <span class="physics-stage-number" aria-hidden="true">03</span>
+                    <div class="physics-stage-body">
+                        <p class="physics-stage-level">전자와 물질</p>
+                        <h3>전자들이 금속에 에너지를 전달합니다</h3>
+                        <p>금속 안에는 움직일 수 있는 전자들이 이미 존재합니다. 전압을 걸면 금속 내부에 전기장이 형성되고, 전자들은 그 영향을 받아 전체적으로 일정한 방향으로 이동합니다.</p>
+                        <p>전자들은 전기장으로부터 얻은 에너지를 금속 격자와의 상호작용을 통해 전달합니다. 격자의 진동이 활발해지고, 필라멘트의 온도가 올라갑니다.</p>
+
+                    </div>
+                </li>
+
+                <li class="physics-stage">
+                    <span class="physics-stage-number" aria-hidden="true">04</span>
+                    <div class="physics-stage-body">
+                        <p class="physics-stage-level">전자기학과 열복사</p>
+                        <h3>뜨거운 물체는 전자기파를 방출합니다</h3>
+                        <p>물체는 온도에 따라 전자기파를 방출합니다. 이를 <strong>열복사</strong>라고 합니다. 상온의 물체는 주로 눈에 보이지 않는 적외선을 방출합니다.</p>
+                        <p>필라멘트의 온도가 충분히 높아지면 가시광선도 많이 방출되어 눈에 밝게 보입니다. 백열전구에서는 가시광선과 함께 많은 적외선도 방출됩니다.</p>
+
+                    </div>
+                </li>
+
+                <li class="physics-stage">
+                    <span class="physics-stage-number" aria-hidden="true">05</span>
+                    <div class="physics-stage-body">
+                        <p class="physics-stage-level">양자적 설명</p>
+                        <h3>빛은 광자 단위로 에너지를 주고받습니다</h3>
+                        <p>빛과 물질 사이의 에너지 교환은 <strong>광자</strong>라는 단위로 설명할 수 있습니다. 광자 하나의 에너지는 빛의 진동수에 비례합니다.</p>
+                        <p class="physics-formula"><span><var>E</var> = <var>h</var><var>f</var></span><small>E는 광자의 에너지, h는 플랑크 상수, f는 빛의 진동수입니다.</small></p>
+                        <p>진동수가 높은 빛일수록 광자 하나의 에너지가 큽니다. 백열전구는 여러 진동수의 빛을 함께 방출하며, 온도에 따라 어떤 진동수의 빛이 얼마나 나오는지가 달라집니다. 이 분포를 설명하는 이론이 플랑크의 복사 법칙입니다.</p>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </template>
+
+    <template id="content-magnet">
+        <div class="physics-lesson">
+            <p class="physics-intro">자석이 서로 밀고 당기는 현상에서 시작해 자기장, 전자의 성질, 자석 내부의 양자적 상호작용까지 살펴봅니다.</p>
+
+            <ol class="physics-stages" role="list">
+                <li class="physics-stage">
+                    <span class="physics-stage-number" aria-hidden="true">01</span>
+                    <div class="physics-stage-body">
+                        <p class="physics-stage-level">눈에 보이는 현상</p>
+                        <h3>같은 극은 밀어내고 다른 극은 끌어당깁니다</h3>
+                        <p>두 자석의 N극끼리 또는 S극끼리 마주 보게 하면 서로 밀어냅니다. 반대로 N극과 S극이 마주 보면 서로 끌어당깁니다. 자석의 방향을 바꾸는 것만으로 힘의 방향도 달라집니다.</p>
+                        <p>이러한 힘은 자석이 서로 닿지 않아도 작용합니다. 자석 주변의 공간에 어떤 물리적 성질이 있는지 살펴보면 이 현상을 설명할 수 있습니다.</p>
+                    </div>
+                </li>
+
+                <li class="physics-stage">
+                    <span class="physics-stage-number" aria-hidden="true">02</span>
+                    <div class="physics-stage-body">
+                        <p class="physics-stage-level">자기장과 힘</p>
+                        <h3>자석은 주변에 자기장을 만듭니다</h3>
+                        <p>자석 주변에는 다른 자석이나 나침반에 영향을 주는 <strong>자기장</strong>이 있습니다. 나침반 바늘은 자기장의 방향을 따라 돌아가며, 철가루로는 자기장의 모양을 간접적으로 관찰할 수 있습니다.</p>
+                        <p>한 자석이 만든 자기장은 다른 자석의 방향과 위치에 따라 돌리는 힘과 밀거나 당기는 힘을 줍니다. 같은 극을 마주 보게 했을 때는 밀어내는 방향의 힘이 나타납니다.</p>
+                    </div>
+                </li>
+
+                <li class="physics-stage">
+                    <span class="physics-stage-number" aria-hidden="true">03</span>
+                    <div class="physics-stage-body">
+                        <p class="physics-stage-level">전자와 자기 모멘트</p>
+                        <h3>자성의 출발점은 전자의 성질입니다</h3>
+                        <p>물질의 자성에는 원자 안 전자의 궤도 운동과 <strong>스핀</strong>에 연결된 자기 모멘트가 관여합니다. 자기 모멘트는 자기장과 얼마나, 어떤 방향으로 상호작용하는지를 나타내는 양입니다.</p>
+                        <p>스핀은 전자가 가진 고유한 양자적 성질입니다. 작은 공이 실제로 빙글빙글 회전하는 모습으로 이해하면 정확하지 않습니다. 전자들의 자기 모멘트가 서로 상쇄되는지, 합쳐지는지에 따라 물질의 자성이 달라집니다.</p>
+                    </div>
+                </li>
+
+                <li class="physics-stage">
+                    <span class="physics-stage-number" aria-hidden="true">04</span>
+                    <div class="physics-stage-body">
+                        <p class="physics-stage-level">물질 내부의 정렬</p>
+                        <h3>작은 자기 구역들이 모여 자석을 만듭니다</h3>
+                        <p>철과 같은 강자성체 내부에는 많은 원자의 자기 모멘트가 비슷한 방향으로 정렬된 <strong>자기 구역</strong>이 있습니다. 각 구역은 작은 자석처럼 생각할 수 있습니다.</p>
+                        <p>구역들이 서로 다른 방향을 향하면 전체 자성이 작을 수 있습니다. 반면 한쪽 방향의 정렬이 우세해지면 전체적으로 강한 자성이 나타나며, 외부 자기장을 제거한 뒤에도 그 정렬이 남으면 영구자석이 됩니다.</p>
+                    </div>
+                </li>
+
+                <li class="physics-stage">
+                    <span class="physics-stage-number" aria-hidden="true">05</span>
+                    <div class="physics-stage-body">
+                        <p class="physics-stage-level">양자적 설명</p>
+                        <h3>교환 상호작용이 내부 정렬을 설명합니다</h3>
+                        <p>강자성체 안에서 자기 모멘트들이 함께 정렬되는 이유는 <strong>교환 상호작용</strong>이라는 양자적 효과와 관련이 있습니다. 여기에는 전자 사이의 전기적 상호작용과 전자들의 양자 상태가 함께 관여합니다.</p>
+                        <p>강자성체에서는 이 효과가 이웃한 자기 모멘트들이 같은 방향으로 정렬되는 상태를 유리하게 만들 수 있습니다. 이러한 내부 정렬로 생긴 두 자석이 서로의 자기장과 상호작용하면서, 우리가 관찰하는 밀고 당기는 힘이 나타납니다.</p>
+                    </div>
+                </li>
+
+            </ol>
+        </div>
+    </template>
+
+    <template id="content-matter">
+        <div class="physics-lesson">
+            <p class="physics-intro">금속, 유리, 다이아몬드처럼 서로 다른 물질의 성질을 원자, 전자, 결합과 내부 구조의 관점에서 살펴봅니다.</p>
+
+            <ol class="physics-stages" role="list">
+                <li class="physics-stage">
+                    <span class="physics-stage-number" aria-hidden="true">01</span>
+                    <div class="physics-stage-body">
+                        <p class="physics-stage-level">눈에 보이는 현상</p>
+                        <h3>물질마다 다른 성질이 있습니다</h3>
+                        <p>구리선은 전기가 잘 통하고, 유리는 대체로 전기가 잘 통하지 않습니다. 다이아몬드는 매우 단단하지만 연필심의 주성분인 흑연은 쉽게 묻어납니다.</p>
+                        <p>이러한 차이는 색이나 모양만으로 결정되지 않습니다. 물질을 이루는 입자의 종류와 그 입자들이 연결되고 배열된 방식이 서로 다르기 때문에 나타납니다.</p>
+                    </div>
+                </li>
+
+                <li class="physics-stage">
+                    <span class="physics-stage-number" aria-hidden="true">02</span>
+                    <div class="physics-stage-body">
+                        <p class="physics-stage-level">물질을 이루는 입자</p>
+                        <h3>원자와 전자가 물질의 바탕이 됩니다</h3>
+                        <p>물질은 원자, 분자, 이온 등의 입자로 이루어져 있습니다. 원자는 원자핵과 전자로 구성되며, 원자핵 속 양성자의 수가 원소의 종류를 결정합니다.</p>
+                        <p>입자의 종류가 같아도 전자의 상태나 입자들이 모인 구조가 달라지면 물질의 성질은 달라질 수 있습니다. 특히 바깥쪽 전자들은 원자 사이의 결합에 중요한 역할을 합니다.</p>
+                    </div>
+                </li>
+
+                <li class="physics-stage">
+                    <span class="physics-stage-number" aria-hidden="true">03</span>
+                    <div class="physics-stage-body">
+                        <p class="physics-stage-level">전자와 화학 결합</p>
+                        <h3>입자들이 연결되는 방식이 다릅니다</h3>
+                        <p>원자들이 전자를 공유하는 <strong>공유 결합</strong>, 양이온과 음이온 사이의 전기적 인력에 의한 <strong>이온 결합</strong>, 여러 원자에 걸쳐 퍼진 전자들이 관여하는 <strong>금속 결합</strong> 등 다양한 결합이 있습니다.</p>
+                        <p>결합의 종류와 세기는 단단함, 녹는점, 전기 전도성 등에 영향을 줍니다. 분자로 이루어진 물질에서는 분자 내부의 결합뿐 아니라 분자 사이에 작용하는 힘도 성질을 결정하는 데 중요합니다.</p>
+                    </div>
+                </li>
+
+                <li class="physics-stage">
+                    <span class="physics-stage-number" aria-hidden="true">04</span>
+                    <div class="physics-stage-body">
+                        <p class="physics-stage-level">입체 구조와 배열</p>
+                        <h3>같은 탄소도 배열에 따라 달라집니다</h3>
+                        <p>다이아몬드와 흑연은 모두 탄소로 이루어져 있습니다. 다이아몬드에서는 탄소 원자들이 단단한 입체 그물 구조를 이루지만, 흑연에서는 탄소 원자들이 층을 이루어 배열됩니다.</p>
+                        <p>흑연은 층 사이의 결합이 층 내부보다 약해서 층들이 쉽게 미끄러지고 떨어져 나옵니다. 따라서 원소의 종류가 같더라도 결합과 배열을 함께 알아야 물질의 성질을 설명할 수 있습니다.</p>
+                    </div>
+                </li>
+
+                <li class="physics-stage">
+                    <span class="physics-stage-number" aria-hidden="true">05</span>
+                    <div class="physics-stage-body">
+                        <p class="physics-stage-level">양자적 설명</p>
+                        <h3>전자가 가질 수 있는 에너지 상태가 중요합니다</h3>
+                        <p>양자역학에서는 전자가 가질 수 있는 에너지 상태가 정해져 있습니다. 많은 원자가 모인 고체에서는 이 상태들이 촘촘히 모여 <strong>에너지띠</strong>를 형성합니다.</p>
+                        <p>금속에서는 전자들이 전기장에 반응해 옮겨 갈 수 있는 가까운 에너지 상태가 있어 전류가 잘 흐릅니다. 절연체에서는 채워진 띠와 그 위의 빈 띠 사이에 큰 에너지 간격이 있어, 보통의 조건에서는 전류가 잘 흐르지 않습니다. 물질의 성질은 이렇게 전자의 양자 상태까지 연결해 설명할 수 있습니다.</p>
+                    </div>
+                </li>
+
+            </ol>
+        </div>
+    </template>
+
+    <template id="content-gravity">
+        <div class="physics-lesson">
+            <p class="physics-intro">물체가 아래로 떨어지는 현상에서 시작해 뉴턴의 만유인력, 자유낙하, 일반상대성이론의 시공간 설명까지 살펴봅니다.</p>
+
+            <ol class="physics-stages" role="list">
+                <li class="physics-stage">
+                    <span class="physics-stage-number" aria-hidden="true">01</span>
+                    <div class="physics-stage-body">
+                        <p class="physics-stage-level">눈에 보이는 현상</p>
+                        <h3>손을 놓은 물체는 지구 쪽으로 떨어집니다</h3>
+                        <p>손에 든 공을 놓으면 바닥을 향해 떨어집니다. 물체에 작용하는 지구의 중력 때문에 운동 상태가 변하는 것입니다. 우리가 말하는 아래쪽은 대체로 지구 중심을 향하는 방향입니다.</p>
+                        <p>종이와 공이 다르게 떨어지는 모습을 볼 수도 있습니다. 이때는 중력뿐 아니라 공기 저항도 함께 작용하므로, 눈에 보이는 낙하 속도만으로 중력을 비교하면 안 됩니다.</p>
+                    </div>
+                </li>
+
+                <li class="physics-stage">
+                    <span class="physics-stage-number" aria-hidden="true">02</span>
+                    <div class="physics-stage-body">
+                        <p class="physics-stage-level">힘과 운동</p>
+                        <h3>중력은 물체를 가속합니다</h3>
+                        <p>지표면 근처에서 물체에 작용하는 중력의 크기는 질량과 중력가속도를 이용해 나타낼 수 있습니다. 질량이 클수록 받는 중력도 큽니다.</p>
+                        <p class="physics-formula"><span><var>F</var> = <var>m</var><var>g</var></span><small>F는 중력의 크기, m은 물체의 질량, g는 중력가속도입니다. 지표면 근처에서 g는 약 9.8 m/s²입니다.</small></p>
+                        <p>질량이 큰 물체는 같은 힘으로 운동 상태를 바꾸기도 더 어렵습니다. 따라서 더 큰 중력을 받는다는 이유만으로 항상 더 빨리 떨어지는 것은 아닙니다.</p>
+                    </div>
+                </li>
+
+                <li class="physics-stage">
+                    <span class="physics-stage-number" aria-hidden="true">03</span>
+                    <div class="physics-stage-body">
+                        <p class="physics-stage-level">뉴턴의 만유인력</p>
+                        <h3>중력은 지구 밖에서도 작용합니다</h3>
+                        <p>뉴턴은 지구 위에서 물체가 떨어지는 현상과 달이 지구 주위를 도는 현상을 같은 중력으로 설명했습니다. 두 질량 사이의 인력은 질량의 곱에 비례하고, 거리의 제곱에 반비례합니다.</p>
+                        <p class="physics-formula"><span><var>F</var> = <var>G</var> <var>m</var>₁<var>m</var>₂ / <var>r</var>²</span><small>G는 중력상수, m₁과 m₂는 두 물체의 질량, r은 두 질점 사이의 거리입니다. 구대칭 물체의 외부에서는 중심 사이의 거리를 사용합니다.</small></p>
+                        <p>이 법칙으로 낙하 운동뿐 아니라 달과 인공위성의 궤도도 계산할 수 있습니다. 지구와 물체는 서로를 끌어당기지만, 지구의 질량이 훨씬 커 지구 쪽의 가속도는 매우 작습니다.</p>
+                    </div>
+                </li>
+
+                <li class="physics-stage">
+                    <span class="physics-stage-number" aria-hidden="true">04</span>
+                    <div class="physics-stage-body">
+                        <p class="physics-stage-level">자유낙하와 등가원리</p>
+                        <h3>질량이 달라도 같은 가속도로 떨어집니다</h3>
+                        <p>공기 저항을 무시하면 같은 장소에서 놓은 물체들은 질량에 관계없이 같은 중력가속도로 떨어집니다. 자유낙하하는 엘리베이터 안에서는 몸과 주변 물체가 함께 떨어져 무중력처럼 느껴집니다.</p>
+                        <p>충분히 작은 영역에서 자유낙하하는 관찰자는 중력의 효과를 없앤 것처럼 물리를 설명할 수 있습니다. 이 생각은 중력과 가속의 관계를 다루는 <strong>등가원리</strong>로 이어지며, 일반상대성이론의 출발점이 됩니다.</p>
+                    </div>
+                </li>
+
+                <li class="physics-stage">
+                    <span class="physics-stage-number" aria-hidden="true">05</span>
+                    <div class="physics-stage-body">
+                        <p class="physics-stage-level">일반상대성이론</p>
+                        <h3>중력은 시공간의 기하와 연결됩니다</h3>
+                        <p>일반상대성이론에서는 질량과 에너지가 시공간의 기하에 영향을 주고, 자유낙하하는 물체는 그 시공간에서 자연스러운 경로인 <strong>측지선</strong>을 따른다고 설명합니다.</p>
+                        <p>이 관점은 물체를 당기는 힘이라는 뉴턴의 설명보다 깊은 이론으로 이어집니다. 특히 시공간의 곡률은 가까이 떨어지는 물체들의 경로가 서로 달라지는 조석 효과와 연결됩니다. 일상적인 약한 중력과 느린 운동에서는 뉴턴의 법칙이 매우 좋은 근사로 작용합니다.</p>
+                    </div>
+                </li>
+
+            </ol>
+        </div>
+    </template>
 
     <script src="script.js"></script>
 </body>

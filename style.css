@@ -492,3 +492,257 @@ body.dark .training-flow {
         width: auto;
     }
 }
+
+#topic-options {
+    display: grid;
+    gap: 12px;
+    padding: 20px;
+    border: 1px solid #deddea;
+    border-radius: 10px;
+}
+
+#topic-options label {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.exploration-result {
+    padding: 24px;
+    border: 1px solid #deddea;
+    border-radius: 12px;
+    background-color: #f4f3ff;
+    scroll-margin-top: 24px;
+    overflow-wrap: anywhere;
+}
+
+.exploration-result[hidden] {
+    display: none;
+}
+
+.exploration-result h1 {
+    margin-top: 0;
+    font-size: clamp(28px, 5vw, 48px);
+}
+
+.exploration-result h2 {
+    font-size: 24px;
+    line-height: 1.4;
+}
+
+.exploration-content {
+    line-height: 1.9;
+}
+
+body.dark .exploration-result {
+    background-color: #2d2e38;
+    border-color: #50515f;
+}
+
+body.dark .exploration-result h2 {
+    color: #b9b5ff;
+}
+
+.exploration-content h3,
+.exploration-content h4,
+.exploration-content h5,
+.exploration-content h6 {
+    margin-top: 28px;
+    line-height: 1.5;
+}
+
+.exploration-content img {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+}
+
+.exploration-content a {
+    color: #4b43db;
+}
+
+.exploration-content blockquote {
+    margin: 20px 0;
+    padding: 4px 16px;
+    border-left: 4px solid #635bff;
+}
+
+.exploration-content pre {
+    overflow-x: auto;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: #e9e7f7;
+}
+
+.exploration-content table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+}
+
+.exploration-content th,
+.exploration-content td {
+    padding: 8px 12px;
+    border: 1px solid #b0b7c5;
+}
+
+body.dark .exploration-content a {
+    color: #b9b5ff;
+}
+
+body.dark .exploration-content pre {
+    background-color: #202128;
+}
+
+.physics-lesson {
+    --lesson-accent: #5147c7;
+    --lesson-text: #292a31;
+    --lesson-muted: #555763;
+    --lesson-surface: #ffffff;
+    --lesson-tint: #efedff;
+    --lesson-border: #d8d4f0;
+    color: var(--lesson-text);
+}
+
+.physics-lesson .physics-intro {
+    max-width: 68ch;
+    margin: 0 0 28px;
+    color: var(--lesson-muted);
+}
+
+.physics-stages {
+    display: grid;
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.physics-stage {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr);
+    align-items: start;
+    gap: 20px;
+    padding: 28px;
+    border: 1px solid var(--lesson-border);
+    border-radius: 14px;
+    background-color: var(--lesson-surface);
+}
+
+.physics-stage-number {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    color: var(--lesson-accent);
+    background-color: var(--lesson-tint);
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.physics-stage-body {
+    min-width: 0;
+}
+
+.physics-stage .physics-stage-level {
+    margin: 0 0 6px;
+    color: var(--lesson-accent);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.physics-stage h3 {
+    margin: 0 0 16px;
+    color: var(--lesson-text);
+    font-size: 22px;
+    line-height: 1.5;
+    word-break: keep-all;
+}
+
+.physics-stage p {
+    margin: 12px 0;
+    color: var(--lesson-text);
+    line-height: 1.9;
+}
+
+.physics-stage .physics-formula {
+    display: grid;
+    gap: 8px;
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--lesson-tint);
+}
+
+.physics-formula > span {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.physics-formula small {
+    color: var(--lesson-muted);
+    font-size: 14px;
+}
+
+body.dark .physics-lesson {
+    --lesson-accent: #c4bfff;
+    --lesson-text: #f4f4f8;
+    --lesson-muted: #d1cedc;
+    --lesson-surface: #353541;
+    --lesson-tint: #45415b;
+    --lesson-border: #5d596f;
+}
+
+@media (max-width: 768px) {
+    .physics-stages {
+        gap: 16px;
+    }
+
+    .physics-stage {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+        padding: 20px;
+    }
+
+    .physics-stage-number {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .physics-stage h3 {
+        font-size: 20px;
+    }
+
+    .physics-stage .physics-formula {
+        padding: 16px;
+    }
+}
+
+.completion-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.completion-actions button {
+    flex: 1 1 240px;
+    min-width: 0;
+    min-height: 48px;
+}
+
+@media (max-width: 768px) {
+    .completion-actions {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .completion-actions button {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+}
