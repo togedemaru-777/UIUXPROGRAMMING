@@ -356,7 +356,7 @@ function validateTitle() {
     const value = titleInput.value.trim();
 
     if (!value) {
-        titleError.textContent = "탐구할 현상을 입력해 주세요.";
+        titleError.textContent = "탐구 이름을 입력해 주세요.";
         titleInput.classList.add("has-error");
         titleInput.focus();
         return false;
