@@ -41,6 +41,11 @@
             <p>익숙한 현상을 시작으로 그 속에 숨겨진 과학적 원리를 이해해 봅시다.</p>
         </section>
 
+        <section id="exploration-history" class="exploration-history" aria-labelledby="history-title" hidden>
+            <h2 id="history-title">한 번 본 탐구 주제</h2>
+            <ul id="viewed-topic-list" class="viewed-topic-list"></ul>
+        </section>
+
         <section id="features">
             <h2>탐구 주제</h2>
 
@@ -106,6 +111,7 @@
 
         <section id="training-flow" class="training-flow" hidden>
             <h2>탐구 설정</h2>
+            <p id="setup-message" class="setup-message" role="status"></p>
             <p class="progress" aria-label="설정 진행 단계">
                 <span class="progress_item">1 · 정보</span>
                 <span class="progress_item">2 · 주제</span>
@@ -163,7 +169,11 @@
         <section id="exploration-result" class="exploration-result" aria-labelledby="exploration-title" hidden>
             <h1 id="exploration-title" tabindex="-1"></h1>
             <h2 id="exploration-topic"></h2>
+            <p id="exploration-status" class="exploration-status" role="status"></p>
             <div id="exploration-content" class="exploration-content"></div>
+            <div class="exploration-next-actions">
+                <button id="exploration-next" type="button">다른 탐구도 보기</button>
+            </div>
         </section>
 
         <section id="subscribe" class="subscribe-card">

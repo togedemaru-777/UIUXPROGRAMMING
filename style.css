@@ -746,3 +746,134 @@ body.dark .physics-lesson {
         width: 100%;
     }
 }
+
+.exploration-history {
+    --history-surface: #ffffff;
+    --history-tint: #f4f3ff;
+    --history-border: #deddea;
+    --history-text: #292a31;
+    --history-muted: #555763;
+    --history-accent: #5147c7;
+}
+
+.exploration-history[hidden] {
+    display: none;
+}
+
+.viewed-topic-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.viewed-topic-list li {
+    min-width: 0;
+}
+
+.viewed-topic-button {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+    height: 100%;
+    padding: 24px;
+    border: 1px solid var(--history-border);
+    color: var(--history-text);
+    background-color: var(--history-surface);
+    text-align: left;
+    overflow-wrap: anywhere;
+}
+
+.viewed-topic-button:hover {
+    border-color: var(--history-accent);
+    background-color: var(--history-tint);
+}
+
+.viewed-topic-name {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.viewed-topic-title {
+    color: var(--history-muted);
+    line-height: 1.5;
+}
+
+.viewed-topic-status,
+.exploration-result .exploration-status {
+    width: fit-content;
+    padding: 4px 12px;
+    border-radius: 999px;
+    color: #5147c7;
+    background-color: #efedff;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.viewed-topic-status.is-complete,
+.exploration-result .exploration-status.is-complete {
+    color: #245c3a;
+    background-color: #e7f7ed;
+}
+
+.viewed-topic-action {
+    margin-top: auto;
+    color: var(--history-accent);
+    font-weight: 700;
+}
+
+.training-flow #topic-title {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.training-flow .setup-message {
+    padding: 16px;
+    border-radius: 10px;
+    color: #245c3a;
+    background-color: #e7f7ed;
+}
+
+.setup-message:empty {
+    display: none;
+}
+
+.exploration-next-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid #deddea;
+}
+
+.exploration-next-actions button {
+    min-height: 48px;
+}
+
+body.dark .exploration-history {
+    --history-surface: #353541;
+    --history-tint: #45415b;
+    --history-border: #5d596f;
+    --history-text: #f4f4f8;
+    --history-muted: #d1cedc;
+    --history-accent: #c4bfff;
+}
+
+@media (max-width: 768px) {
+    .viewed-topic-list {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .viewed-topic-button {
+        padding: 20px;
+    }
+
+    .exploration-next-actions button {
+        width: 100%;
+    }
+}

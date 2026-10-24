@@ -209,6 +209,14 @@ const explorationResult = document.querySelector("#exploration-result");
 const explorationTitle = document.querySelector("#exploration-title");
 const explorationTopic = document.querySelector("#exploration-topic");
 const explorationContent = document.querySelector("#exploration-content");
+const explorationStatus = document.querySelector("#exploration-status");
+const explorationNext = document.querySelector("#exploration-next");
+const historySection = document.querySelector("#exploration-history");
+const viewedTopicList = document.querySelector("#viewed-topic-list");
+const setupMessage = document.querySelector("#setup-message");
+const viewedTopicsStorageKey = "physicsST.viewedTopics";
+let currentExploration = null;
+let viewedTopics = loadViewedTopics();
 
 const formData = {
     title: "",
@@ -216,7 +224,80 @@ const formData = {
     topicId: ""
 };
 
+function loadViewedTopics() {
+    try {
+        const saved = JSON.parse(localStorage.getItem(viewedTopicsStorageKey) || "[]");
+        if (!Array.isArray(saved)) return [];
+
+        const restored = [];
+        saved.forEach((item) => {
+            if (!item || typeof item.title !== "string" || !item.title.trim()) return;
+            if (!explorationTopics.some((topic) => topic.id === item.topicId)) return;
+            if (restored.some((record) => record.topicId === item.topicId)) return;
+            restored.push({
+                topicId: item.topicId,
+                title: item.title,
+                completed: item.completed === true
+            });
+        });
+        return restored;
+    } catch {
+        return [];
+    }
+}
+
+function saveViewedTopics() {
+    try {
+        localStorage.setItem(viewedTopicsStorageKey, JSON.stringify(viewedTopics));
+    } catch {
+    }
+}
+
+function renderViewedTopics() {
+    viewedTopicList.replaceChildren();
+    historySection.hidden = viewedTopics.length === 0;
+
+    viewedTopics.forEach((record) => {
+        const topic = explorationTopics.find((item) => item.id === record.topicId);
+        const item = document.createElement("li");
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "viewed-topic-button";
+        button.dataset.topicId = topic.id;
+
+        const name = document.createElement("strong");
+        name.className = "viewed-topic-name";
+        name.textContent = topic.title;
+
+        const title = document.createElement("span");
+        title.className = "viewed-topic-title";
+        title.textContent = record.title;
+
+        const status = document.createElement("span");
+        status.className = record.completed
+            ? "viewed-topic-status is-complete"
+            : "viewed-topic-status";
+        status.textContent = record.completed ? "탐구 완료" : "읽는 중";
+
+        const action = document.createElement("span");
+        action.className = "viewed-topic-action";
+        action.textContent = "다시 보기";
+
+        button.append(name, title, status, action);
+        button.addEventListener("click", () => {
+            showExploration(record.topicId, record.title);
+        });
+        item.append(button);
+        viewedTopicList.append(item);
+    });
+}
+
+renderViewedTopics();
+
 function clearExplorationResult() {
+    currentExploration = null;
+    explorationStatus.textContent = "";
+    explorationStatus.classList.remove("is-complete");
     explorationResult.hidden = true;
     explorationTitle.textContent = "";
     explorationTopic.textContent = "";
@@ -262,6 +343,7 @@ recordingConfirm.addEventListener("click", () => {
     if (!agreeCheck.checked) return;
 
     recordingDialog.close();
+    setupMessage.textContent = "";
     clearExplorationResult();
     trainingFlow.hidden = false;
     showStep(0);
@@ -288,6 +370,7 @@ function validateTitle() {
 
 titleNext.addEventListener("click", () => {
     if (!validateTitle()) return;
+    setupMessage.textContent = "";
     showStep(1);
 });
 
@@ -326,26 +409,46 @@ finishButton.addEventListener("click", () => {
     showStep(3);
 });
 
-showTopicButton.addEventListener("click", () => {
-    const topic = explorationTopics.find((item) => item.id === formData.topicId);
-    if (!topic || !formData.title) return;
+function showExploration(topicId, title) {
+    const topic = explorationTopics.find((item) => item.id === topicId);
+    if (!topic || !title) return;
 
     const template = document.querySelector("#content-" + topic.id);
-    explorationTitle.textContent = formData.title;
+    const hasContent = template && template.innerHTML.trim();
+    explorationTitle.textContent = title;
     explorationTopic.textContent = topic.title;
     explorationContent.replaceChildren();
+    explorationNext.disabled = !hasContent;
 
-    if (template && template.innerHTML.trim()) {
+    if (hasContent) {
         explorationContent.append(template.content.cloneNode(true));
+        const previous = viewedTopics.find((record) => record.topicId === topic.id);
+        const record = {
+            topicId: topic.id,
+            title: title,
+            completed: previous ? previous.completed : false
+        };
+        viewedTopics = viewedTopics.filter((item) => item.topicId !== topic.id);
+        viewedTopics.unshift(record);
+        currentExploration = { topicId: topic.id, title: title };
+        explorationStatus.textContent = record.completed ? "탐구 완료" : "읽는 중";
+        explorationStatus.classList.toggle("is-complete", record.completed);
+        saveViewedTopics();
+        renderViewedTopics();
     }
 
     explorationResult.hidden = false;
     showTopicButton.setAttribute("aria-expanded", "true");
     explorationTitle.focus({ preventScroll: true });
     explorationResult.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+showTopicButton.addEventListener("click", () => {
+    showExploration(formData.topicId, formData.title);
 });
 
-restartButton.addEventListener("click", () => {
+function resetExplorationSetup() {
+    setupMessage.textContent = "";
     clearExplorationResult();
     formData.title = "";
     formData.topic = "";
@@ -364,7 +467,25 @@ restartButton.addEventListener("click", () => {
     summaryTopic.textContent = "";
 
     showStep(0);
-    titleInput.focus();
+    trainingFlow.hidden = false;
+    titleInput.focus({ preventScroll: true });
+    trainingFlow.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+restartButton.addEventListener("click", resetExplorationSetup);
+
+explorationNext.addEventListener("click", () => {
+    if (!currentExploration) return;
+
+    const record = viewedTopics.find((item) => item.topicId === currentExploration.topicId);
+    if (!record) return;
+
+    record.completed = true;
+    const completedTitle = currentExploration.title;
+    saveViewedTopics();
+    renderViewedTopics();
+    resetExplorationSetup();
+    setupMessage.textContent = "‘" + completedTitle + "’ 탐구를 완료했습니다. 새 탐구 이름을 입력해 주세요.";
 });
 
 
