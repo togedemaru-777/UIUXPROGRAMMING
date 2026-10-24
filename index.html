@@ -137,21 +137,106 @@
                     <p id="nicknameCount" aria-live="polite">0 / 10</p>
                 </article>
 
-                <article class="event-card">
-                    <h3>탐구 조회 정보 동의</h3>
-                    <label class="agree-row">
-                        <input type="checkbox" id="agreecheck">
-                        학습 활동 분석 조회에 동의합니다.
-                    </label>
-                    <p id="agreeMessage" aria-live="polite">
-                        동의 후 탐구주제를 제공합니다.
-                    </p>
-                    <button id="startButton" type="button" disabled>
-                        탐구 시작하기
-                    </button>
-                </article>
+<article class="event-card">
+    <h3>탐구 설정 안내</h3>
+    <p>관심 있는 물리 현상을 선택하고 탐구 내용을 알아봅니다.</p>
+
+    <label class="agree-row">
+        <input type="checkbox" id="agreecheck">
+        탐구 진행 안내를 확인했습니다.
+    </label>
+
+    <p id="agreeMessage" aria-live="polite">
+        안내 확인 후 탐구를 설정할 수 있습니다.
+    </p>
+
+    <button id="startButton" type="button" disabled>
+        탐구 설정하기
+    </button>
+</article>
             </div>
         </section>
+
+        <dialog id="recording-dialog" aria-labelledby="recording-title" aria-describedby="recording-description">
+            <h2 id="recording-title">탐구 조회 </h2>
+            <p id="recording-description">관심 있는 물리 현상을 입력하고 탐구 주제를 선택할 수 있습니다.
+        지금은 탐구 주제를 설정하는 단계이며,
+        실제 탐구는 아직 시작되지 않습니다.</p>
+            <div class="dialog-actions">
+                <button id="recording-cancel" type="button">돌아가기</button>
+                <button id="recording-confirm" type="button">확인하고 설정 시작하기</button>
+            </div>
+        </dialog>
+
+        <section id="training-flow" class="training-flow" hidden>
+            <h2>탐구 설정</h2>
+            <p class="progress" aria-label="설정 진행 단계">
+                <span class="progress_item">1 · 정보</span>
+                <span class="progress_item">2 · 주제</span>
+                <span class="progress_item">3 · 확인</span>
+            </p>
+
+    <section class="step" data-step="1" hidden>
+        <h3>탐구 이름을 입력해 주세요.</h3>
+        <label for="topic-title">탐구 이름</label>
+        <input id="topic-title" type="text"
+               placeholder="예: 일상 속 물리학 탐구"
+               aria-describedby="title-error">
+        <p id="title-error" class="error-message" aria-live="polite"></p>
+        <button id="title-next" type="button">탐구 주제 선택하기</button>
+    </section>
+
+    <section class="step" data-step="2" hidden>
+        <h3>탐구 주제를 선택해 주세요.</h3>
+        <fieldset id="topic-options">
+            <legend>탐구 주제</legend>
+            <label>
+                <input type="radio" name="topic" value="bulb">
+                전구는 어떻게 빛날까?
+            </label>
+            <label>
+                <input type="radio" name="topic" value="magnet">
+                자석은 왜 서로 밀어낼까?
+            </label>
+            <label>
+                <input type="radio" name="topic" value="matter">
+                물질의 성질은 어떻게 결정될까?
+            </label>
+        </fieldset>
+        <p id="topic-error" class="error-message" aria-live="polite"></p>
+        <div class="step-actions">
+            <button id="option-pre" type="button">이전</button>
+            <button id="option-next" type="button">설정 내용 확인하기</button>
+        </div>
+    </section>
+
+   
+<section class="step" data-step="3" hidden>
+    <h3>탐구 설정 내용을 확인해 주세요.</h3>
+    <div class="summary-list">
+        <div>
+            <span>탐구할 현상</span>
+            <strong id="summary-title"></strong>
+        </div>
+        <div>
+            <span>탐구 주제</span>
+            <strong id="summary-topic"></strong>
+        </div>
+    </div>
+    <div class="step-actions">
+        <button id="summary-prev" type="button">수정하기</button>
+        <button id="finish-button" type="button">설정 완료하기</button>
+    </div>
+</section>
+
+<section class="step complete-step" data-step="4" hidden>
+    <h3>탐구 설정이 완료되었습니다.</h3>
+    <p>탐구 이름과 주제 설정이 완료되었습니다.
+   다른 주제를 탐구하려면 다시 설정할 수 있습니다.</p>
+    <button id="restart-button" type="button">다른 주제 설정하기</button>
+</section>
+
+</section>
 
         <section id="subscribe" class="subscribe-card">
             <h2>새로운 탐구 소식 받기</h2>
