@@ -337,8 +337,6 @@ showTopicButton.addEventListener("click", () => {
 
     if (template && template.innerHTML.trim()) {
         explorationContent.append(template.content.cloneNode(true));
-    } else {
-        explorationContent.textContent = "이 주제의 탐구 내용은 아직 준비 중입니다. 다른 주제를 설정해 주세요.";
     }
 
     explorationResult.hidden = false;
