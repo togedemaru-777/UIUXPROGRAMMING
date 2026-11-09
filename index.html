@@ -89,6 +89,14 @@
               <div id="topic-option-list" class="topic-option-list"></div>
             </fieldset>
             <p id="topic-error" class="field-error" role="alert"></p>
+            <div class="field memo-field">
+              <label class="check-row" for="memo-option"><input id="memo-option" type="checkbox"><span><strong>궁금한 점을 메모로 남길게요</strong><small>선택하면 메모를 적을 수 있습니다.</small></span></label>
+              <div id="memo-area" class="memo-area" hidden>
+                <label for="memo">탐구 메모</label>
+                <textarea id="memo" name="memo" maxlength="100" disabled aria-describedby="memo-help"></textarea>
+                <p id="memo-help" class="field-help">최대 100자까지 입력할 수 있습니다.</p>
+              </div>
+            </div>
             <div class="step-actions">
               <button id="option-pre" class="button button-secondary" type="button">이전 단계</button>
               <button id="option-next" class="button button-primary" type="button">설정 내용 확인하기 <span aria-hidden="true">→</span></button>
@@ -102,10 +110,11 @@
               <div><dt>탐구할 현상</dt><dd id="summary-title"></dd></div>
               <div><dt>탐구자</dt><dd id="summary-nickname"></dd></div>
               <div><dt>탐구 주제</dt><dd id="summary-topic"></dd></div>
+              <div><dt>탐구 메모</dt><dd id="summary-memo"></dd></div>
             </dl>
             <div class="step-actions">
               <button id="summary-prev" class="button button-secondary" type="button">수정하기</button>
-              <button id="finish-button" class="button button-primary" type="button">설정 완료하기 <span aria-hidden="true">→</span></button>
+              <button id="finish-button" class="button button-primary" type="submit">설정 완료하기 <span aria-hidden="true">→</span></button>
             </div>
           </div>
 

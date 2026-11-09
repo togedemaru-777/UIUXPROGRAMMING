@@ -46,6 +46,12 @@ const topicError = document.querySelector("#topic-error");
 const topicRadios = document.querySelectorAll('input[name="topic"]');
 const setupMessage = document.querySelector("#setup-message");
 const showTopicButton = document.querySelector("#mdnebonegi");
+const finishButton = document.querySelector("#finish-button");
+const finishButtonLabel = finishButton.innerHTML;
+const summaryPrev = document.querySelector("#summary-prev");
+const memoOption = document.querySelector("#memo-option");
+const memoArea = document.querySelector("#memo-area");
+const memoInput = document.querySelector("#memo");
 
 const explorationResult = document.querySelector("#exploration-result");
 const explorationTitle = document.querySelector("#exploration-title");
@@ -57,8 +63,10 @@ const viewedTopicEmpty = document.querySelector("#viewed-topic-empty");
 const viewedTopicList = document.querySelector("#viewed-topic-list");
 
 const viewedTopicsStorageKey = "physicsST.viewedTopics";
+const setupsStorageKey = "physicsST.setups";
 let currentStep = 1;
 let currentExploration = null;
+let isSubmitting = false;
 let viewedTopics = loadViewedTopics();
 
 const formData = { title: "", nickname: "", topic: "", topicId: "" };
@@ -88,7 +96,19 @@ function saveViewedTopics() {
   }
 }
 
+function syncTopicOptions() {
+  topicRadios.forEach((radio) => {
+    const topic = explorationTopics.find((item) => item.id === radio.value);
+    const viewed = viewedTopics.some((record) => record.topicId === radio.value);
+    radio.disabled = viewed;
+    radio.closest(".choice-card").querySelector("small").textContent = viewed
+      ? "이미 본 주제입니다. 한 번 본 탐구 주제에서 다시 볼 수 있습니다."
+      : topic.description;
+  });
+}
+
 function renderViewedTopics() {
+  syncTopicOptions();
   viewedTopicList.replaceChildren();
   viewedTopicEmpty.hidden = viewedTopics.length !== 0;
   viewedTopicList.hidden = viewedTopics.length === 0;
@@ -164,17 +184,29 @@ function validateTitle() {
   return true;
 }
 
+function setSetupMessage(message, type) {
+  setupMessage.textContent = message;
+  setupMessage.className = type ? "setup-message is-" + type : "setup-message";
+}
+
+function syncMemoArea() {
+  memoArea.hidden = !memoOption.checked;
+  memoInput.disabled = !memoOption.checked;
+}
+
 function goToTopicStep() {
   if (!validateTitle()) return;
   formData.nickname = nicknameInput.value.trim();
-  setupMessage.textContent = "";
+  setSetupMessage("");
   showStep(2);
 }
 
 function goToSummaryStep() {
   const selectedTopic = document.querySelector('input[name="topic"]:checked');
   if (!selectedTopic) {
-    topicError.textContent = "탐구 주제를 선택해 주세요.";
+    topicError.textContent = [...topicRadios].every((radio) => radio.disabled)
+      ? "모든 주제를 이미 보았습니다. 한 번 본 탐구 주제에서 다시 볼 수 있습니다."
+      : "탐구 주제를 선택해 주세요.";
     return;
   }
   topicError.textContent = "";
@@ -185,12 +217,54 @@ function goToSummaryStep() {
   document.querySelector("#summary-title").textContent = formData.title;
   document.querySelector("#summary-nickname").textContent = formData.nickname || "입력 안 함";
   document.querySelector("#summary-topic").textContent = formData.topic;
+  document.querySelector("#summary-memo").textContent = (memoInput.disabled ? "" : memoInput.value.trim()) || "입력 안 함";
   showStep(3);
+}
+
+function wait(milliseconds) {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+}
+
+function saveSetup(setup) {
+  const saved = JSON.parse(localStorage.getItem(setupsStorageKey) || "[]");
+  localStorage.setItem(setupsStorageKey, JSON.stringify([setup, ...saved]));
+}
+
+function setSubmitting(submitting) {
+  isSubmitting = submitting;
+  finishButton.disabled = submitting;
+  summaryPrev.disabled = submitting;
+}
+
+async function submitSetup() {
+  setSubmitting(true);
+  finishButton.textContent = "저장 중...";
+  setSetupMessage("탐구 설정을 저장하고 있습니다. 잠시만 기다려 주세요.", "pending");
+
+  try {
+    await wait(800);
+    saveSetup({
+      title: formData.title,
+      nickname: formData.nickname,
+      topicId: formData.topicId,
+      memo: memoInput.disabled ? "" : memoInput.value.trim()
+    });
+    setSubmitting(false);
+    finishButton.innerHTML = finishButtonLabel;
+    setSetupMessage("‘" + formData.title + "’ 탐구 설정을 저장했습니다.", "success");
+    showStep(4);
+  } catch {
+    setSubmitting(false);
+    finishButton.textContent = "다시 시도하기";
+    setSetupMessage("탐구 설정을 저장하지 못했습니다. 입력한 내용은 그대로 있으니 다시 시도해 주세요.", "failure");
+  }
 }
 
 titleInput.addEventListener("input", () => {
   if (titleInput.getAttribute("aria-invalid") === "true") validateTitle();
 });
+
+memoOption.addEventListener("change", syncMemoArea);
 
 nicknameInput.addEventListener("input", () => {
   nicknameCount.textContent = nicknameInput.value.length + " / " + nicknameInput.maxLength + "자";
@@ -205,15 +279,20 @@ topicRadios.forEach((radio) => {
 // Enter 입력도 버튼과 같은 단계 이동으로 처리합니다.
 planForm.addEventListener("submit", (event) => {
   event.preventDefault();
+  if (isSubmitting) return;
   if (currentStep === 1) goToTopicStep();
   else if (currentStep === 2) goToSummaryStep();
+  else if (currentStep === 3) submitSetup();
 });
 
 document.querySelector("#title-next").addEventListener("click", goToTopicStep);
 document.querySelector("#option-pre").addEventListener("click", () => showStep(1));
 document.querySelector("#option-next").addEventListener("click", goToSummaryStep);
-document.querySelector("#summary-prev").addEventListener("click", () => showStep(2));
-document.querySelector("#finish-button").addEventListener("click", () => showStep(4));
+summaryPrev.addEventListener("click", () => {
+  setSetupMessage("");
+  finishButton.innerHTML = finishButtonLabel;
+  showStep(2);
+});
 
 function showExploration(topicId, title) {
   const topic = explorationTopics.find((item) => item.id === topicId);
@@ -250,9 +329,11 @@ showTopicButton.addEventListener("click", () => {
 });
 
 function resetExplorationSetup() {
-  setupMessage.textContent = "";
+  setSetupMessage("");
+  finishButton.innerHTML = finishButtonLabel;
   clearExplorationResult();
   planForm.reset();
+  syncMemoArea();
   formData.title = "";
   formData.nickname = "";
   formData.topic = "";
@@ -264,6 +345,7 @@ function resetExplorationSetup() {
   document.querySelector("#summary-title").textContent = "";
   document.querySelector("#summary-nickname").textContent = "";
   document.querySelector("#summary-topic").textContent = "";
+  document.querySelector("#summary-memo").textContent = "";
 
   showStep(1, false);
   document.querySelector("#planner").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -282,7 +364,7 @@ explorationNext.addEventListener("click", () => {
   saveViewedTopics();
   renderViewedTopics();
   resetExplorationSetup();
-  setupMessage.textContent = "‘" + completedTitle + "’ 탐구를 완료했습니다. 새 탐구 이름을 입력해 주세요.";
+  setSetupMessage("‘" + completedTitle + "’ 탐구를 완료했습니다. 새 탐구 이름을 입력해 주세요.", "success");
 });
 
 renderViewedTopics();

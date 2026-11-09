@@ -398,3 +398,17 @@ body.dark .field input[type="email"] { border-color: var(--line); }
   .dialog-actions { flex-direction: column-reverse; }
   .subscribe-form { flex-direction: column; align-items: stretch; }
 }
+
+.memo-field { margin-top: 24px; }
+.memo-area { margin: 16px 0 0 30px; }
+.memo-area > label { display: block; margin-bottom: 9px; color: var(--ink); font-size: 14px; font-weight: 800; }
+.memo-area textarea { display: block; width: 100%; min-height: 110px; padding: 12px 15px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); resize: vertical; outline: none; }
+.memo-area textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(6, 71, 249, .12); }
+@media (max-width: 600px) {
+  .memo-area { margin-left: 0; }
+}
+
+.choice-card input:disabled + span { opacity: .55; background: var(--surface-soft); cursor: not-allowed; }
+
+.setup-message.is-pending { color: var(--blue); background: var(--lavender); }
+.setup-message.is-failure { color: var(--danger); background: var(--danger-bg); }
